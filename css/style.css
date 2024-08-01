@@ -140,6 +140,7 @@ header nav ul li a{
     background-color: #180404;
     display: flex;
     align-items: center;
+
 }
 
 .book-details img{
@@ -149,6 +150,7 @@ header nav ul li a{
 
 .book-details h1{
     margin-top: 0;
+    text-wrap: wrap;
 }
 
 
@@ -202,10 +204,7 @@ button{
 }
 .flex{
     display: flex;
-    color: rgb(173, 168, 168);
-    font-family: 'Courier New', Courier, monospace;
-    padding: 10 px 0;
-    
+    gap: 15px;
 }
 
 .book img{
