@@ -227,4 +227,10 @@ footer{
 
 }
 
+@media screen {max-width: 900px;} {
+      .book-list{
+        grid-template-columns: 1fr;
+      }
+    
+}
 

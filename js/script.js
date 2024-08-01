@@ -67,6 +67,7 @@ const books = [
         title: 'Olhos Famintos',
         author: ' Timo Vuorensola, Victor Salva',
         description: 'Uma criatura canibal que assassina pessoas que estão com medo.',
+        resume: "AAAAAAAAAAA",
     },
     {
         imgSrc: 'img/iluminado.jpeg',
@@ -79,7 +80,8 @@ const books = [
         imgSrc: 'img/midsommar.jpeg',
         title: 'Midsommar - O Mal Não Espera a Noite',
         author: ' Ari Aster',
-        description: 'Uma filme de suspenso psicológico sobre um seita pagã.',  resume: "AAAAAAAAAAA",
+        description: 'Uma filme de suspenso psicológico sobre um seita pagã.',
+        resume: "AAAAAAAAAAA",
     },
     
 
@@ -87,11 +89,12 @@ const books = [
  
 
 //função para adicionar os livros á página
-function addBooksToPage() {
+function addBooksToPage(filteredBooks = books) {
  const bookList=document.querySelector('.book-list');
 
- books.forEach(book => {
-      const bookElement =document.createElement('div');
+ bookList.innerHTML = '';
+ filteredBooks.forEach(book => {
+      const bookElement = document.createElement('div');
       bookElement.classList.add('book');
 
       bookElement.innerHTML = `
@@ -114,7 +117,7 @@ function viewDataForm(){
     const form = document.getElementById('contactForm');
     const formMessage = document.getElementById('formMessage');
 
-    form.addEventListener('submit', function(event) {
+    form.addEventListener('submit', function (event) {
         event.preventDefault();
 
         const formData = new FormData(form);
@@ -128,6 +131,21 @@ function viewDataForm(){
          form.reset();
     });
 }
+
+//função para pesquisar livros
+function searchBooks() {
+
+    const searchInput = document.getElementById('searchInput');
+    const query = searchInput.value.toLowerCase();
+
+    const filteredBooks = books.filter(book =>
+        book.title.toLowerCase().includes(query)
+    )
+
+    addBooksToPage(filteredBooks);
+}
+
+
 
 //função para obter o valor dos parâmetros da Url
 function getQueryParam(param) {
@@ -148,17 +166,21 @@ function addDetailsBook() {
         document.getElementById('bookTitle').textContent = `Livro: ${bookData.title}`;
         document.getElementById('bookAuthor').textContent =  `Autor: ${bookData.author}`;
         document.getElementById('bookResume').textContent = `Sinopse: ${bookData.resume}`;
-    } else{
+    } else {
         document.getElementById('bookTitle').textContent = "Livro não encontrado";
     }
     }
 
 
 //obtém o título do livro do Url
-const bookId = getQueryParam('bookId');
-document.addEventListener('DOMContentLoaded', addBooksToPage);
 document.addEventListener('DOMContentLoaded', viewDataForm);
 document.addEventListener('DOMContentLoaded', addDetailsBook);
+document.addEventListener('DOMContentLoaded', function() {
+    addBooksToPage();
+
+    document.getElementById('searchInput').addEventListener('input', searchBooks);
+});
+
 
 
 
